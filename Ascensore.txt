@@ -1,0 +1,70 @@
+public class Ascensore
+{
+private final int MAXPIANI = 4;
+private final int MAXPERSONE = 5;
+private Prenotazioni[] prenota;
+private int numPren;
+private int pianoAtt;
+private int personeAtt;
+
+//Creo un oggetto della classe Ascensore
+
+public Ascensore(int Max)
+{
+ prenota = new Prenotazioni[Max];
+ numPren = 0;
+ pianoAtt = 0;
+ personeAtt = 0;
+}
+
+//Si incrementa il numero di persone nell'ascensore e
+si mette in coda la relativa prenotazione se è possibile
+
+public boolean entra(int persone,int piano)
+{
+if (personeAtt + persone > MAXPERSONE)
+ return false;
+ else if (piano > MAXPIANI || piano < 0)
+ return false;
+ else if (numPren == prenota.length)
+ return false;
+ else
+{
+ personeAtt += persone;
+ prenota[numPren] = new Prenotazioni(persone,piano);
+ numPren++;
+ return true;
+}
+}
+
+//L'ascensore va al piano specificato dalla prima prenotazione
+trovata, fa uscire le persone relative e aggiorna la lista delle
+prenotazioni
+
+public void muovi()
+{
+ if (numPren > 0)
+ {
+ pianoAtt = prenota[0].getPiano();
+ personeAtt = personeAtt - prenota[0].getPersone();
+ System.arraycopy(prenota,1,prenota,0,prenota.length-1);
+ numPren--;
+ }
+}
+
+//Stampa la situazione attuale dell'ascensore,
+comprese prenotazioni in coda.
+
+public String toString()
+{
+ String r = "";
+ for (int i = 0; i < numPren; i++)
+ {
+ r = r + prenota[i].toString() + "\n";
+ String s = "";
+ return s = "Piano corrente: " + pianoAtt + "." + "\n" + "Persone in
+ascensore:“”+ personeAtt + "\n" + r;
+ }
+}
+
+
